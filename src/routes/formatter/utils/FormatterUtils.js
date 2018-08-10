@@ -29,19 +29,19 @@ class FormatterUtils {
 
         // Add nodes to children arrays, starting from lowest level nodeMap
         nodeMap.forEach((node) => {
-            if (node.parent_id !== null) {
-                let parentNode = nodeMap.get(node.parent_id);
+            let parentId = node.parent_id;
+            if (parentId !== null) {
+                let parentNode = nodeMap.get(parentId);
                 parentNode.children.push(node);
-                // Below might not be necessary
-                nodeMap.set(node.parent_id, parentNode);
+                nodeMap.set(parentId, parentNode);
+                // Remove current node from map
+                nodeMap.delete(node.id);
             }
         });
 
-        // Return root in array from last object in map
-        return JSON.stringify(getLastValueInMap(nodeMap));
+        // Return array containing tree
+        return JSON.stringify([nodeMap.values().next().value]);
     }
 }
-
-const getLastValueInMap = map => Array.from(map)[map.size-1][1];
 
 export default FormatterUtils;
