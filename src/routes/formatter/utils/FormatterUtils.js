@@ -1,6 +1,6 @@
 class FormatterUtils {
     // TODO: Edit buildtree method
-    static buildTree(json) {
+    static buildTreeFromJSON(json) {
         console.log("Building Tree");
         return json;
     }
