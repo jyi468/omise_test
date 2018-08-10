@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import FormatterPage from './routes/formatter/FormatterPage';
 import TablePage from "./routes/table/TablePage";
@@ -9,7 +11,7 @@ class App extends Component {
   render() {
     return (
         <Router>
-            <div>
+            <div class="container">
                 <ul>
                     <li>
                         <Link to="/formatter">JSON Formatter</Link>
