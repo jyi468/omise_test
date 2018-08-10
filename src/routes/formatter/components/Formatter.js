@@ -19,8 +19,8 @@ class Formatter extends Component {
         // Format input and update state
         if (event.target && event.target.value) {
             try {
-                const json = JSON.parse(event.target.value);
-                const newOutput = FormatterUtils.buildTreeFromJSON(json);
+                const nestedNodes = JSON.parse(event.target.value);
+                const newOutput = FormatterUtils.buildTree(nestedNodes);
 
                 this.setState((prevState, props) => {
                     if (prevState.input !== props.input) {

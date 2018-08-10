@@ -11,18 +11,18 @@ class FormatterUtils {
      * You would have to iterate through the "level" arrays each time you are trying to find a parent
      * to push the child node into.
      *
-     * @param json
+     * @param nestedNodes
      * @returns {string}
      */
-    static buildTreeFromJSON(json) {
+    static buildTree(nestedNodes) {
         console.log("Building Tree");
 
         // Create flat map of nodeMap in reverse order
         const nodeMap = new Map();
 
-        Object.keys(json).reverse().forEach((levelString) => {
+        Object.keys(nestedNodes).reverse().forEach((levelString) => {
             let level = parseInt(levelString);
-            json[level].forEach((node) => {
+            nestedNodes[level].forEach((node) => {
                 nodeMap.set(node.id, node);
             });
         });
@@ -40,6 +40,7 @@ class FormatterUtils {
         });
 
         // Return array containing tree
+        // TODO: Regex to return in exact format
         return JSON.stringify([nodeMap.values().next().value], undefined, 2);
     }
 }
