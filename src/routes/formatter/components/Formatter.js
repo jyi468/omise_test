@@ -18,43 +18,44 @@ class Formatter extends Component {
     handleInput(event) {
         // Format input and update state
         if (event.target) {
-            try {
-                const json = JSON.parse(event.target.value);
-                const newOutput = FormatterUtils.buildTreeFromJSON(json);
+            if (event.target.value) {
+                try {
+                    const json = JSON.parse(event.target.value);
+                    const newOutput = FormatterUtils.buildTreeFromJSON(json);
 
-                this.setState((prevState, props) => {
-                    if (prevState.input !== props.input) {
-                        return {
-                            output: newOutput,
-                            errorMsg: ""
-                        };
+                    this.setState((prevState, props) => {
+                        if (prevState.input !== props.input) {
+                            return {
+                                output: newOutput,
+                                errorMsg: ""
+                            };
+                        }
+                    });
+                } catch(error) {
+                    switch (error.name) {
+                        case "SyntaxError":
+                            this.setState(() => ({
+                                errorMsg: 'Item must be a valid JSON object'
+                            }));
                     }
-                });
-            } catch(error) {
-                switch (error.name) {
-                    case "SyntaxError":
-                        this.setState(() => ({
-                            errorMsg: "Item must be a valid JSON object"
-                        }));
                 }
+            } else {
+                this.setState({errorMsg: ''});
             }
+
         }
     }
 
     render() {
         // Pass in call back functions to FormatterInput and FormatterOutput
         return (
-            <div>
-                <div className="well">{this.state.errorMsg}</div>
-                <div className="row">
-                    <div className="col-lg-6">
-                        <FormatterInput onInput={this.handleInput}/>
-                    </div>
-                    <div className="col-lg-6">
-                        <FormatterOutput output={this.state.output}/>
-                    </div>
+            <form>
+                <div className="form-row">
+                    <FormatterInput onInput={this.handleInput}/>
+                    <FormatterOutput output={this.state.output}/>
                 </div>
-            </div>
+                <div className="well error text-danger">{this.state.errorMsg}</div>
+            </form>
         );
     }
 }

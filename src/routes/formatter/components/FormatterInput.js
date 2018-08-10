@@ -1,7 +1,15 @@
 import React from 'react';
 
 const FormatterInput = (props) => (
-    <textarea onChange={props.onInput}/>
+    <div className="form-group col-lg-6">
+        <label htmlFor="formatterInput">Input (Editable Field)</label>
+        <textarea
+            className="form-control"
+            id="formatterInput"
+            rows="20"
+            onChange={props.onInput}
+            placeholder="Input here please..."/>
+    </div>
 );
 
 export default FormatterInput;
