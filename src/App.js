@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
+
+import FormatterPage from './routes/formatter/FormatterPage';
+import TablePage from "./routes/table/TablePage";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Router>
+            <div>
+                <ul>
+                    <li>
+                        <Link to="/formatter">JSON Formatter</Link>
+                    </li>
+                    <li>
+                        <Link to="/table">GitHub Repository Table</Link>
+                    </li>
+                </ul>
+
+                <Route path="/formatter" component={FormatterPage}/>
+                <Route path="/table" component={TablePage}/>
+            </div>
+        </Router>
     );
   }
 }
