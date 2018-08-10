@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
         <Router>
-            <div class="container">
+            <div className="container">
                 <PageHeader>
                     React Challenge <small>for Omise</small>
                 </PageHeader>

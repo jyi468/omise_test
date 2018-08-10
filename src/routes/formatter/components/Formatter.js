@@ -33,11 +33,11 @@ class Formatter extends Component {
     render() {
         // Pass in call back functions to FormatterInput and FormatterOutput
         return (
-            <div class="row">
-                <div class="col-lg-6">
+            <div className="row">
+                <div className="col-lg-6">
                     <FormatterInput onInput={this.handleInput}/>
                 </div>
-                <div class="col-lg-6">
+                <div className="col-lg-6">
                     <FormatterOutput output={this.state.output}/>
                 </div>
             </div>
