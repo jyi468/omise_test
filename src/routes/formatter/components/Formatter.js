@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Well } from 'react-bootstrap';
+import {Well} from 'react-bootstrap';
 import FormatterUtils from '../utils/FormatterUtils';
 import FormatterInput from './FormatterInput';
 import FormatterOutput from './FormatterOutput';
@@ -17,32 +17,29 @@ class Formatter extends Component {
 
     handleInput(event) {
         // Format input and update state
-        if (event.target) {
-            if (event.target.value) {
-                try {
-                    const json = JSON.parse(event.target.value);
-                    const newOutput = FormatterUtils.buildTreeFromJSON(json);
+        if (event.target && event.target.value) {
+            try {
+                const json = JSON.parse(event.target.value);
+                const newOutput = FormatterUtils.buildTreeFromJSON(json);
 
-                    this.setState((prevState, props) => {
-                        if (prevState.input !== props.input) {
-                            return {
-                                output: newOutput,
-                                errorMsg: ""
-                            };
-                        }
-                    });
-                } catch(error) {
-                    switch (error.name) {
-                        case "SyntaxError":
-                            this.setState(() => ({
-                                errorMsg: 'Item must be a valid JSON object'
-                            }));
+                this.setState((prevState, props) => {
+                    if (prevState.input !== props.input) {
+                        return {
+                            output: newOutput,
+                            errorMsg: ""
+                        };
                     }
+                });
+            } catch (error) {
+                switch (error.name) {
+                    case "SyntaxError":
+                        this.setState(() => ({
+                            errorMsg: 'Item must be a valid JSON object'
+                        }));
                 }
-            } else {
-                this.setState({errorMsg: ''});
             }
-
+        } else {
+            this.setState({errorMsg: ''});
         }
     }
 
