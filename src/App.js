@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { PageHeader } from 'react-bootstrap';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,6 +13,9 @@ class App extends Component {
     return (
         <Router>
             <div class="container">
+                <PageHeader>
+                    React Challenge <small>for Omise</small>
+                </PageHeader>
                 <ul>
                     <li>
                         <Link to="/formatter">JSON Formatter</Link>
