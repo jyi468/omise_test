@@ -40,7 +40,7 @@ class FormatterUtils {
         });
 
         // Return array containing tree
-        return JSON.stringify([nodeMap.values().next().value]);
+        return JSON.stringify([nodeMap.values().next().value], undefined, 2);
     }
 }
 
