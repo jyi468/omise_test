@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders output correctly 1`] = `
+<div
+  className="form-group col-lg-6"
+>
+  <label
+    htmlFor="formatterOutput"
+  >
+    Output
+  </label>
+  <textarea
+    className="form-control formatter-output"
+    disabled={true}
+    id="formatterOutput"
+    rows="20"
+    value={
+      Array [
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [],
+              "id": 12,
+              "level": 1,
+              "parent_id": 10,
+              "title": "Red Roof",
+            },
+          ],
+          "id": 10,
+          "level": 0,
+          "parent_id": null,
+          "title": "House",
+        },
+      ]
+    }
+  />
+</div>
+`;

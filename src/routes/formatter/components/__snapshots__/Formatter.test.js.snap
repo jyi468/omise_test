@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders output correctly 1`] = `
+<textarea
+  class="form-control formatter-input"
+  id="formatterInput"
+  rows="20"
+  placeholder="Input here please..."
+/>
+`;
+
+exports[`renders output correctly 2`] = `
+<textarea
+  class="form-control formatter-output"
+  id="formatterOutput"
+  rows="20"
+  disabled=""
+>
+  [ { "id": 10, "title": "House", "level": 0, "children": [ { "id": 12, "title": "Red Roof", "level": 1, "children": [], "parent_id": 10 } ], "parent_id": null } ]
+</textarea>
+`;
