@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "jest": "^23.5.0",
-    "npm-watch": "^0.3.0"
+    "npm-watch": "^0.3.0",
+    "react-test-renderer": "^16.4.2"
   }
 }
