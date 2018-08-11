@@ -8,11 +8,11 @@ class Table extends Component {
         super(props);
         this.state = {
             pageSetId: 0,
-            pageNumber: 0,
+            localPageNumber: 0,
             rows: [],
             repos: [],
             since: 0,
-            prevSince: null,
+            prevSince: 0,
             nextSince: null
         };
         this.handlePageClick = this.handlePageClick.bind(this);
@@ -25,39 +25,47 @@ class Table extends Component {
             this.setState({
                 rows: repos.slice(0, 10),
                 repos: repos,
-                nextSince: repos[99]
+                nextSince: repos[99].id
             });
         });
     }
 
-    handlePageClick(pageNumber) {
-        if (typeof pageNumber === "number") {
+    handlePageClick(localPageNumber) {
+        if (typeof localPageNumber === "number") {
             this.setState({
-                rows: this.state.repos.slice(10 * pageNumber, 10 * pageNumber + 10),
-                pageNumber: pageNumber
+                rows: this.state.repos.slice(10 * localPageNumber, 10 * localPageNumber + 10),
+                localPageNumber: localPageNumber
             });
         }
     }
 
     handlePrevClick() {
+        debugger;
         TableUtils.fetchRepos(this.state.prevSince).then((repos) => {
             this.setState({
                 repos: repos,
+                pageSetId: this.state.pageSetId - 1,
                 since: this.state.prevSince,
-                prevSince: repos[0] - 1,
+                prevSince: repos[0].id - 1,
                 nextSince: this.state.since
             });
+
+            this.handlePageClick(0);
         });
     }
 
     handleNextClick() {
+        debugger;
         TableUtils.fetchRepos(this.state.nextSince).then((repos) => {
             this.setState({
                 repos: repos,
+                pageSetId: this.state.pageSetId + 1,
                 since: this.state.nextSince,
                 prevSince: this.state.since,
-                nextSince: repos[99]
+                nextSince: repos[99].id
             });
+
+            this.handlePageClick(0);
         });
     }
 
@@ -68,6 +76,7 @@ class Table extends Component {
                     <div className="col-md-4 offset-md-8">
                         <Pagination
                             pageSetId={this.state.pageSetId}
+                            localPageNumber={this.state.localPageNumber}
                             handlePageClick={this.handlePageClick}
                             handlePrevClick={this.handlePrevClick}
                             handleNextClick={this.handleNextClick}
@@ -103,6 +112,7 @@ class Table extends Component {
                     <div className="col-md-4 offset-md-8">
                         <Pagination
                             pageSetId={this.state.pageSetId}
+                            localPageNumber={this.state.localPageNumber}
                             handlePageClick={this.handlePageClick}
                             handlePrevClick={this.handlePrevClick}
                             handleNextClick={this.handleNextClick}
