@@ -1,14 +1,51 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Row from './Row';
 import Pagination from './Pagination';
+import TableUtils from '../utils/TableUtils';
 
 class Table extends Component {
     constructor(props) {
         super(props);
         this.state = {
             pageSetId: 0,
-            repos: []
-        }
+            repos: [],
+            since: 0,
+            prevSince: null,
+            nextSince: null
+        };
+        this.handlePrevClick = this.handlePrevClick.bind(this);
+        this.handleNextClick = this.handleNextClick.bind(this);
+    }
+
+    componentDidMount() {
+        TableUtils.fetchRepos(this.state.since).then((repos) => {
+            this.setState({
+                repos: repos,
+                nextSince: repos[99]
+            });
+        });
+    }
+
+    handlePrevClick() {
+        TableUtils.fetchRepos(this.state.prevSince).then((repos) => {
+            this.setState({
+                repos: repos,
+                since: this.state.prevSince,
+                prevSince: repos[0] - 1,
+                nextSince: this.state.since
+            });
+        });
+    }
+
+    handleNextClick() {
+        TableUtils.fetchRepos(this.state.nextSince).then((repos) => {
+            this.setState({
+                repos: repos,
+                since: this.state.nextSince,
+                prevSince: this.state.since,
+                nextSince: repos[99]
+            });
+        });
     }
 
     render() {
@@ -19,7 +56,11 @@ class Table extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-4 offset-md-8">
-                        <Pagination pageNumber={this.state.pageSetId}/>
+                        <Pagination
+                            pageSetId={this.state.pageSetId}
+                            handlePrevClick={this.handlePrevClick}
+                            handleNextClick={this.handleNextClick}
+                        />
                     </div>
                 </div>
 
@@ -37,6 +78,7 @@ class Table extends Component {
                             </thead>
                             <tbody>
                             {
+                                // TODO: use indexing for sets of 10 for repos
                                 this.state.repos.map((repo) => (
                                     <Row data={repo}/>
                                 ))
@@ -56,4 +98,5 @@ class Table extends Component {
         );
     }
 }
+
 export default Table;

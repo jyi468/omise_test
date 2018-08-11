@@ -12,7 +12,7 @@ const Pagination = ({pageSetId, handlePrevClick, handleNextClick}) => {
     const pageNumbers = [];
     for (let i = 1; i < 11; i++) {
         pageNumbers.push(
-            <li className="page-item"><a className="page-link" href="#">{pageSetId + i}</a></li>
+            <li key={pageSetId + i} className="page-item"><a className="page-link" href="#">{pageSetId + i}</a></li>
         );
     }
 
