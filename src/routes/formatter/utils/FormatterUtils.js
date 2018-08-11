@@ -40,7 +40,6 @@ class FormatterUtils {
         });
 
         // Return array containing tree
-        // TODO: Regex to return in exact format
         return JSON.stringify([nodeMap.values().next().value], undefined, 2);
     }
 }
