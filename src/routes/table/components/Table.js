@@ -8,11 +8,14 @@ class Table extends Component {
         super(props);
         this.state = {
             pageSetId: 0,
+            pageNumber: 0,
+            rows: [],
             repos: [],
             since: 0,
             prevSince: null,
             nextSince: null
         };
+        this.handlePageClick = this.handlePageClick.bind(this);
         this.handlePrevClick = this.handlePrevClick.bind(this);
         this.handleNextClick = this.handleNextClick.bind(this);
     }
@@ -20,10 +23,20 @@ class Table extends Component {
     componentDidMount() {
         TableUtils.fetchRepos(this.state.since).then((repos) => {
             this.setState({
+                rows: repos.slice(0, 10),
                 repos: repos,
                 nextSince: repos[99]
             });
         });
+    }
+
+    handlePageClick(pageNumber) {
+        if (typeof pageNumber === "number") {
+            this.setState({
+                rows: this.state.repos.slice(10 * pageNumber, 10 * pageNumber + 10),
+                pageNumber: pageNumber
+            });
+        }
     }
 
     handlePrevClick() {
@@ -55,6 +68,7 @@ class Table extends Component {
                     <div className="col-md-4 offset-md-8">
                         <Pagination
                             pageSetId={this.state.pageSetId}
+                            handlePageClick={this.handlePageClick}
                             handlePrevClick={this.handlePrevClick}
                             handleNextClick={this.handleNextClick}
                         />
@@ -75,9 +89,8 @@ class Table extends Component {
                             </thead>
                             <tbody>
                             {
-                                // TODO: use indexing for sets of 10 for repos
-                                this.state.repos.map((repo) => (
-                                    <Row data={repo}/>
+                                this.state.rows.map((repo) => (
+                                    <Row data={repo} key={repo.id}/>
                                 ))
                             }
 
@@ -88,7 +101,12 @@ class Table extends Component {
 
                 <div className="row">
                     <div className="col-md-4 offset-md-8">
-                        <Pagination pageNumber={this.state.pageSetId}/>
+                        <Pagination
+                            pageSetId={this.state.pageSetId}
+                            handlePageClick={this.handlePageClick}
+                            handlePrevClick={this.handlePrevClick}
+                            handleNextClick={this.handleNextClick}
+                        />
                     </div>
                 </div>
             </div>

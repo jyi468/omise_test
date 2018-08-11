@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Pagination = ({pageSetId, handlePrevClick, handleNextClick}) => {
+const Pagination = ({pageSetId, handlePrevClick, handleNextClick, handlePageClick}) => {
     const { ...prevPageItem } = {};
     const { ...nextPageItem } = {};
     const { ...prevTabIndex } = {};
@@ -11,20 +11,23 @@ const Pagination = ({pageSetId, handlePrevClick, handleNextClick}) => {
 
     const pageNumbers = [];
     for (let i = 1; i < 11; i++) {
+        const pageNumber = pageSetId + i;
         pageNumbers.push(
-            <li key={pageSetId + i} className="page-item"><a className="page-link" href="#">{pageSetId + i}</a></li>
+            <li key={pageSetId + i} className="page-item">
+                <a href className="page-link" onClick={() => handlePageClick(pageNumber - 1)}>{pageNumber}</a>
+            </li>
         );
     }
 
     return (
-        <nav aria-label="Page navigation example">
+        <nav>
             <ul className="pagination justify-content-end">
                 <li className="page-item">
-                    <a className="page-link" href="#" onClick={handlePrevClick}>← Previous 10</a>
+                    <a className="page-link" href onClick={handlePrevClick}>← Previous 10</a>
                 </li>
                 {pageNumbers}
                 <li className="page-item">
-                    <a className="page-link" href="#" onClick={handleNextClick}>Next 10 →</a>
+                    <a className="page-link" href onClick={handleNextClick}>Next 10 →</a>
                 </li>
             </ul>
         </nav>

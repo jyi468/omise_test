@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Row = ({data}) => (
+    // Add href for html_url
     <tr key={data.id}>
         <th scope="row">{data.id}</th>
         <td>{data.name}</td>
