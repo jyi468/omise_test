@@ -6,7 +6,9 @@ const Row = ({data}) => (
         <th scope="row">{data.id}</th>
         <td>{data.name}</td>
         <td>{data.owner.login}</td>
-        <td>{data.html_url}</td>
+        <td>
+            <a href={data.html_url} target="_blank">{data.html_url}</a>
+        </td>
         <td>{data.description}</td>
     </tr>
 );

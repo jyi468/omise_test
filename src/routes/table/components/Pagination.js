@@ -14,7 +14,7 @@ const Pagination = ({sinceIdx, handlePrevClick, handleNextClick, handlePageClick
 
     return (
         <nav>
-            <ul className="pagination justify-content-end">
+            <ul className="pagination justify-content-center">
                 {sinceIdx !== 0 &&
                 <li className="page-item">
                     <a className="page-link" onClick={handlePrevClick}>← Previous 10</a>

@@ -69,7 +69,7 @@ class Table extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-md-4 offset-md-8">
+                    <div className="col-md-12">
                         <Pagination
                             sinceIdx={this.state.sinceIdx}
                             localPageNumber={this.state.localPageNumber}
@@ -105,7 +105,7 @@ class Table extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-md-4 offset-md-8">
+                    <div className="col-md-12">
                         <Pagination
                             sinceIdx={this.state.sinceIdx}
                             localPageNumber={this.state.localPageNumber}
