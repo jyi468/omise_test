@@ -7,13 +7,11 @@ class Table extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageSetId: 0,
+            sinceIdx: 0,
+            sinces: [0],
             localPageNumber: 0,
             rows: [],
             repos: [],
-            since: 0,
-            prevSince: 0,
-            nextSince: null
         };
         this.handlePageClick = this.handlePageClick.bind(this);
         this.handlePrevClick = this.handlePrevClick.bind(this);
@@ -21,33 +19,31 @@ class Table extends Component {
     }
 
     componentDidMount() {
-        TableUtils.fetchRepos(this.state.since).then((repos) => {
-            this.setState({
+        TableUtils.fetchRepos(0).then((repos) => {
+            this.setState((prevState) => ({
                 rows: repos.slice(0, 10),
                 repos: repos,
-                nextSince: repos[99].id
-            });
+                sinces: [...prevState.sinces, repos[99].id]
+            }));
         });
     }
 
     handlePageClick(localPageNumber) {
         if (typeof localPageNumber === "number") {
-            this.setState({
-                rows: this.state.repos.slice(10 * localPageNumber, 10 * localPageNumber + 10),
+            this.setState((prevState) => ({
+                rows: prevState.repos.slice(10 * localPageNumber, 10 * localPageNumber + 10),
                 localPageNumber: localPageNumber
-            });
+            }));
         }
     }
 
     handlePrevClick() {
         debugger;
-        TableUtils.fetchRepos(this.state.prevSince).then((repos) => {
+        const prevSinceIdx = this.state.sinceIdx - 1;
+        TableUtils.fetchRepos(this.state.sinces[prevSinceIdx]).then((repos) => {
             this.setState({
                 repos: repos,
-                pageSetId: this.state.pageSetId - 1,
-                since: this.state.prevSince,
-                prevSince: repos[0].id - 1,
-                nextSince: this.state.since
+                sinceIdx: prevSinceIdx,
             });
 
             this.handlePageClick(0);
@@ -56,14 +52,14 @@ class Table extends Component {
 
     handleNextClick() {
         debugger;
-        TableUtils.fetchRepos(this.state.nextSince).then((repos) => {
-            this.setState({
+        const nextSinceIdx = this.state.sinceIdx + 1;
+        const nextSince = this.state.repos[99].id;
+        TableUtils.fetchRepos(nextSince).then((repos) => {
+            this.setState((prevState) => ({
                 repos: repos,
-                pageSetId: this.state.pageSetId + 1,
-                since: this.state.nextSince,
-                prevSince: this.state.since,
-                nextSince: repos[99].id
-            });
+                sinceIdx: nextSinceIdx,
+                sinces: !prevState.sinces[nextSinceIdx] ? [...prevState.sinces, nextSince] : prevState.sinces
+            }));
 
             this.handlePageClick(0);
         });
@@ -75,7 +71,7 @@ class Table extends Component {
                 <div className="row">
                     <div className="col-md-4 offset-md-8">
                         <Pagination
-                            pageSetId={this.state.pageSetId}
+                            sinceIdx={this.state.sinceIdx}
                             localPageNumber={this.state.localPageNumber}
                             handlePageClick={this.handlePageClick}
                             handlePrevClick={this.handlePrevClick}
@@ -111,7 +107,7 @@ class Table extends Component {
                 <div className="row">
                     <div className="col-md-4 offset-md-8">
                         <Pagination
-                            pageSetId={this.state.pageSetId}
+                            sinceIdx={this.state.sinceIdx}
                             localPageNumber={this.state.localPageNumber}
                             handlePageClick={this.handlePageClick}
                             handlePrevClick={this.handlePrevClick}
