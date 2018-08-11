@@ -51,9 +51,6 @@ class Table extends Component {
     render() {
         return (
             <div>
-                <div className="page-header mt-5 mb-5">
-                    <h1>GitHub Api Repositories</h1>
-                </div>
                 <div className="row">
                     <div className="col-md-4 offset-md-8">
                         <Pagination
