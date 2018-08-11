@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Well} from 'react-bootstrap';
 import FormatterUtils from '../utils/FormatterUtils';
 import FormatterInput from './FormatterInput';
 import FormatterOutput from './FormatterOutput';

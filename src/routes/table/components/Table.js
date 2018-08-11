@@ -38,7 +38,6 @@ class Table extends Component {
     }
 
     handlePrevClick() {
-        debugger;
         const prevSinceIdx = this.state.sinceIdx - 1;
         TableUtils.fetchRepos(this.state.sinces[prevSinceIdx]).then((repos) => {
             this.setState({
@@ -51,7 +50,6 @@ class Table extends Component {
     }
 
     handleNextClick() {
-        debugger;
         const nextSinceIdx = this.state.sinceIdx + 1;
         const nextSince = this.state.repos[99].id;
         TableUtils.fetchRepos(nextSince).then((repos) => {
